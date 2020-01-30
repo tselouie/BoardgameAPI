@@ -8,8 +8,9 @@ var cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// db
-// MONGO_URI=mongodb://localhost/nodeapi
+/**************************************************************************
+**************************       DB Connection    ************************
+**************************************************************************/
 mongoose.connect(
         process.env.MONGO_URI, { 
             useUnifiedTopology: true,
@@ -22,17 +23,31 @@ mongoose.connection.on("error", err => {
     console.log(`DB connection error: ${err.message}`);
 });
 
-// bring in routes
+/**************************************************************************
+**************************       Routes       ************************
+**************************************************************************/
 const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
 
-// middleware
+
+/**************************************************************************
+**************************       Middleware       ************************
+**************************************************************************/
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
 app.use("/", postRoutes);
 app.use("/", authRoutes);
+
+// show error when user try to access web without authorization  
+app.use(function(err, req, res, next) {
+    if (err.name === "UnauthorizedError") {
+        res.status(401).json({ error: "Unauthorized Access!" });
+    }
+});
+
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`A Node Js API is listening on port: ${port}`);
