@@ -1,0 +1,24 @@
+{
+  "name": "bgappapi",
+  "version": "1.0.0",
+  "description": "board game api",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "node",
+    "api"
+  ],
+  "author": "Zenna Liang",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^5.3.1",
+    "mongoose": "^5.8.10",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2"
+  }
+}
