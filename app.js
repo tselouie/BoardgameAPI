@@ -28,6 +28,8 @@ mongoose.connection.on("error", err => {
 **************************************************************************/
 const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+
 
 
 /**************************************************************************
@@ -39,6 +41,7 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use("/", postRoutes);
 app.use("/", authRoutes);
+app.use("/", userRoutes);
 
 // show error when user try to access web without authorization  
 app.use(function(err, req, res, next) {
